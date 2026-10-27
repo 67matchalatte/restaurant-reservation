@@ -1,0 +1,47 @@
+@startuml
+skinparam sequenceMessageAlign center
+
+title Диаграмма последовательностей: Оформление брони (История 2)
+
+actor Гость
+participant "Веб-интерфейс" as UI
+participant "API бронирования" as API
+participant "Проверка занятости" as CHECK
+database "БД" as DB
+
+Гость -> UI : выбрать столик
+activate UI
+UI -> API : POST /bookings
+activate API
+
+API -> CHECK : проверить(столик, время)
+activate CHECK
+CHECK -> DB : запрос на слот
+activate DB
+DB --> CHECK : список броней
+deactivate DB
+
+alt столик свободен
+    CHECK --> API : свободен
+    API -> DB : ожидает
+    activate DB
+    DB --> API : номер брони
+    deactivate DB
+    API --> UI : 201 Created
+    UI --> Гость : номер и статус
+else столик занят
+    CHECK --> API : занят
+    API --> UI : 409 Conflict
+    UI --> Гость : ошибка
+end
+deactivate CHECK
+deactivate API
+
+note right of API
+  Структура кода:
+  - UI: валидация
+  - API: оркестрация
+  - CHECK: бизнес-правило (ФТ-5)
+  - DB: хранение (ФТ-6)
+end note
+@enduml
