@@ -34,7 +34,9 @@
 ## Архитектура и модели
 
 ### Диаграммы
-- [Диаграмма последовательностей: оформление брони](docs/uml/sequence-booking.puml)
+- **Диаграмма последовательностей:**
+  - [Посмотреть картинку (PNG)](docs/uml/sequence-booking.png)
+  - [Исходный код диаграммы (PlantUML)](docs/uml/sequence-booking.puml)
 - [C4 — контекст](docs/architecture/c4-context.png.drawio.png)
 - [C4 — контейнеры](docs/architecture/c4-container.drawio.png)
 
