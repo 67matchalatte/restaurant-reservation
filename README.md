@@ -30,3 +30,20 @@
 ## Документация
 - протоколы встреч: docs/protocols/;
 - план проекта: docs/plan/ (появится на ЛР-3).
+
+## Архитектура и модели
+
+### Диаграммы
+- [Диаграмма последовательностей: оформление брони](docs/uml/sequence-booking.puml)
+- [C4 — контекст](docs/architecture/c4-context.png.drawio.png)
+- [C4 — контейнеры](docs/architecture/c4-container.drawio.png)
+
+### Архитектурные решения (ADR)
+- [ADR-001: хранилище SQLite на MVP](docs/architecture/adr-001-vybor-bazy-dannyh.md)
+- [ADR-002: проверка занятости через транзакцию](docs/architecture/adr-002-strategiya-proverki-zanyatosti.md)
+- [ADR-003: монолитная архитектура](docs/architecture/adr-003-monolit-i-masshtabirovanie.md)
+
+### Ревью и протоколы
+- [Протокол выбора базовой модели](docs/model-choice.md)
+- [Чек-лист ревью моделей](docs/review-models.md)
+- [Качественные сценарии](docs/architecture/quality-scenarios.md)
