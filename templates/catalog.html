@@ -1,8 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head><title>Каталог столиков</title></head>
-<body>
-    <h1>Свободные столики</h1>
-    <p>Заглушка для экрана каталога. Позже здесь будет вывод данных из БД.</p>
-</body>
-</html>
+{% extends "base.html" %}{% block body %}
+<h3>Свободные столики</h3>
+<form method="get">
+ Дата <input type="date" name="date" value="{{ day }}">
+ Время <select name="time">{% for s in slots %}<option {{ 'selected' if s==slot }}>{{ s }}</option>{% endfor %}</select>
+ Гостей <input type="number" name="guests" min="1" max="8" value="{{ guests }}" style="width:60px">
+ <button>Применить</button>
+</form>
+<div class="cards">
+{% for t in tables %}
+ <div class="card"><b>Столик {{ t.id }}</b><br>{{ t.zone }}<br>{{ t.seats }} мест<br>
+ <a href="{{ url_for('booking_form', table_id=t.id, date=day, time=slot, guests=guests) }}">Забронировать</a></div>
+{% else %}<p>Нет свободных столиков.</p>{% endfor %}
+</div><p>Показано столиков: {{ tables|length }}</p>
+{% endblock %}
