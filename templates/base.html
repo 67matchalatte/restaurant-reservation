@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Ресторан «Мистер Бист»{% endblock %}</title>
+<style>
+ body{font-family:system-ui,sans-serif;max-width:900px;margin:0 auto;padding:12px;background:#fdecec}
+ nav a{margin-right:14px} .cards{display:flex;flex-wrap:wrap;gap:12px}
+ .card{background:#cfe5ff;border:1px solid #888;padding:10px;width:200px}
+ .t{display:inline-block;width:90px;height:70px;margin:6px;padding:6px;border:1px solid #555}
+ .free{background:#cfe5ff}.busy{background:#f4a6a6} .err{color:#b00020;font-weight:bold}
+ table{border-collapse:collapse;background:#fff} td,th{border:1px solid #888;padding:4px 8px}
+ input,select,button{font-size:16px;margin:2px 0}
+</style></head><body>
+<h2>🍽 Ресторан «Мистер Бист»</h2>
+<nav><a href="/">Каталог</a><a href="/hall">Схема зала</a><a href="/admin">Кабинет администратора</a></nav><hr>
+{% block body %}{% endblock %}
+</body></html>

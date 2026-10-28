@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block body %}
+<h3>Кабинет администратора — брони</h3>
+<table><tr><th>№</th><th>Гость</th><th>Телефон</th><th>Дата</th><th>Время</th><th>Столик</th><th>Статус</th><th>Действия</th></tr>
+{% for b in bookings %}<tr><td>{{ b.number }}</td><td>{{ b.name }}</td><td>{{ b.phone }}</td><td>{{ b.booking_date }}</td>
+<td>{{ b.booking_time }}</td><td>{{ b.table_id }}</td><td>{{ b.status }}</td><td>
+{% if b.status=='ОЖИДАЕТ' %}
+ <form method="post" action="{{ url_for('admin_action', bid=b.id, action='confirm') }}" style="display:inline"><button>✓</button></form>
+ <form method="post" action="{{ url_for('admin_action', bid=b.id, action='reject') }}" style="display:inline"><button>✗</button></form>
+{% else %}–{% endif %}</td></tr>
+{% else %}<tr><td colspan="8">Броней пока нет</td></tr>{% endfor %}</table>
+<p><i>Заглушки в v0.1: редактирование брони, управление столиками, часы работы (ФТ-13…15).</i></p>
+{% endblock %}
