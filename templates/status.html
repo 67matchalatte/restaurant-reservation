@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block body %}
+<h3>Бронь {{ b.number }}</h3>
+<p>Столик {{ b.table_id }}, {{ b.booking_date }} {{ b.booking_time }}, гостей: {{ b.guests }}</p>
+<p>Статус: <b>{{ b.status }}</b></p>
+<p>Сохраните номер брони. <a href="/">На главную</a></p>
+{% endblock %}
