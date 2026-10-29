@@ -1,8 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head><title>Схема зала</title></head>
-<body>
-    <h1>Схема зала</h1>
-    <p>Заглушка для визуальной схемы зала (столики).</p>
-</body>
-</html>
+{% extends "base.html" %}{% block body %}
+<h3>Схема зала</h3>
+<form method="get">Дата <input type="date" name="date" value="{{ day }}">
+ Время <select name="time">{% for s in slots %}<option {{ 'selected' if s==slot }}>{{ s }}</option>{% endfor %}</select>
+ <button>Показать</button></form>
+{% for t in tables %}
+ <div class="t {{ 'free' if t.id in free_ids else 'busy' }}"><b>{{ t.id }}</b><br>{{ t.seats }} мест<br>{{ 'свободен' if t.id in free_ids else 'занят' }}</div>
+{% endfor %}
+{% endblock %}
