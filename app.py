@@ -1,10 +1,10 @@
-import os
 from datetime import date
+
 from flask import Flask, Response, abort, redirect, render_template, request, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from db import connect, init_db, free_tables
-from services import create_booking, SLOTS
+from db import connect, free_tables, init_db
+from services import SLOTS, create_booking
 
 app = Flask(__name__)
 ADMIN_HASH = generate_password_hash(os.environ.get("ADMIN_PASSWORD", "admin"))
