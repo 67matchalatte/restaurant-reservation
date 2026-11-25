@@ -1,7 +1,7 @@
 import re
 import secrets
-from datetime import date
 from abc import ABC, abstractmethod
+from datetime import date
 
 SLOTS = ["10:00", "12:00", "14:00", "16:00", "18:00", "20:00"]
 
