@@ -1,6 +1,8 @@
 import pytest
+
 from db import connect, init_db
 from services import create_booking
+
 
 @pytest.fixture
 def setup_db(tmp_path):
