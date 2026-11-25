@@ -1,6 +1,9 @@
-import pytest
 from datetime import date, timedelta
-from db import connect, init_db, free_tables
+
+import pytest
+
+from db import connect, free_tables, init_db
+
 
 @pytest.fixture
 def setup_db(tmp_path):
@@ -24,14 +27,14 @@ def test_free_tables_all_free(setup_db):
 def test_free_tables_excludes_booked(setup_db):
     """Тест: занятый столик не должен попадать в список свободных."""
     tomorrow = (date.today() + timedelta(days=1)).isoformat()
-    
+
     # Создаем бронь на столик №1 на 18:00
     setup_db.execute(
         "INSERT INTO bookings(number, table_id, booking_date, booking_time, guests, name, phone, status) "
-        "VALUES ('B-TEST1', 1, ?, '18:00', 2, 'Тест', '+79990000000', 'ПОДТВЕРЖДЕНА')", 
+        "VALUES ('B-TEST1', 1, ?, '18:00', 2, 'Тест', '+79990000000', 'ПОДТВЕРЖДЕНА')",
         (tomorrow,)
     )
-    
+
     tables = free_tables(setup_db, tomorrow, "18:00")
     # Должно остаться 7 столиков (8 - 1 занятый)
     assert len(tables) == 7
@@ -41,10 +44,10 @@ def test_free_tables_excludes_booked(setup_db):
 def test_free_tables_by_guests(setup_db):
     """Тест: фильтрация по количеству гостей."""
     tomorrow = (date.today() + timedelta(days=1)).isoformat()
-    
+
     # Ищем столики, вмещающие 6 гостей
     tables = free_tables(setup_db, tomorrow, "18:00", guests=6)
-    
+
     # В нашей базе только столики с seats >= 6
     for t in tables:
         assert t["seats"] >= 6
