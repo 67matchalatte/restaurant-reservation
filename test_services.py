@@ -35,6 +35,6 @@ def test_booking_busy(setup_db):
     # Первая бронь
     create_booking(setup_db, 1, "2030-01-01", "18:00", 2, "Иван", "+79991234567")
     # Вторая бронь на тот же столик, в тот же слот
-    status, msg = create_booking(setup_db, 1, "2030-01-01", "18:00", 4, "Петр", "+79997654321")
+    status, msg = create_booking(setup_db, 1, "2030-01-01", "18:00", 2, "Петр", "+79997654321")
     assert status == "busy"
     assert msg is None
