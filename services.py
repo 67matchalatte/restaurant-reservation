@@ -35,18 +35,24 @@ def create_booking(con, table_id, day, slot, guests, name, phone):
         d = date.fromisoformat(day)
     except ValueError:
         return "invalid", "Некорректная дата"
+    
     if d < date.today():
         return "invalid", "Нельзя бронировать на прошедшую дату"
+    
     if slot not in SLOTS:
         return "invalid", "Ресторан работает с 10:00 до 23:00: выберите время из списка"
+    
     if not name.strip():
         return "invalid", "Укажите имя"
+        
     if not re.fullmatch(r"\+?\d{10,15}", re.sub(r"[ ()-]", "", phone)):
         return "invalid", "Телефон: от 10 до 15 цифр"
+    
     t = con.execute("SELECT seats FROM tables WHERE id=?", (table_id,)).fetchone()
     if t is None:
         return "invalid", "Такого столика нет"
-     if not 1 <= guests <= t["seats"]:
+    
+    if not 1 <= guests <= t["seats"]:
         return "invalid", f"За этим столиком от 1 до {t['seats']} гостей"
 
     number = "B-" + secrets.token_hex(3).upper()
@@ -58,13 +64,16 @@ def create_booking(con, table_id, day, slot, guests, name, phone):
         if busy:
             con.execute("ROLLBACK")
             return "busy", None
+        
         con.execute(
             "INSERT INTO bookings(number,table_id,booking_date,booking_time,guests,name,phone) "
             "VALUES (?,?,?,?,?,?,?)", (number, table_id, day, slot, guests, name.strip(), phone.strip()))
         con.execute("COMMIT")
+        
         # Вызов уведомления через паттерн Стратегия
-        notifier = Notifier(SMSNotification()) # Можно менять на EmailNotification
+        notifier = Notifier(SMSNotification())
         notifier.notify(phone, name, number)
+        
         return "ok", number
     except Exception:
         con.execute("ROLLBACK")
