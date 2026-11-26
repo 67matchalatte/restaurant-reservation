@@ -29,6 +29,7 @@ jobs:
       run: |
         ruff check .
 
-    - name: Запуск тестов (pytest)
+    - name: Запуск тестов с покрытием (pytest-cov)
       run: |
-        pytest -v
+        pip install pytest-cov
+        pytest -v --cov=services --cov=db --cov-report=term-missing --cov-fail-under=60
