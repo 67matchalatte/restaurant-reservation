@@ -1,6 +1,7 @@
+from datetime import date, timedelta
+
 import pytest
 
-from datetime import date, timedelta
 from db import connect, init_db
 from services import create_booking
 
@@ -75,8 +76,7 @@ def test_date_validation_parametrized(setup_db, day_offset, expected_status):
 def test_integration_booking_and_notification(setup_db, capsys):
     tomorrow = (date.today() + timedelta(days=1)).isoformat()
     status, number = create_booking(setup_db, 1, tomorrow, "18:00", 2, "Иван", "+79991234567")
-    
     assert status == "ok"
-    
+
     captured = capsys.readouterr()
     assert f"ваша бронь {number}" in captured.out
