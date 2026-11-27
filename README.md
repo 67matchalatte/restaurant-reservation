@@ -1,3 +1,6 @@
+[![CI](https://github.com/67matchalatte/restaurant-reservation/actions/workflows/ci.yml/badge.svg)](https://github.com/67matchalatte/restaurant-reservation/actions/workflows/ci.yml)
+[![Docker](https://img.shields.io/badge/Docker-ready-blue.svg)](docs/deployment.md)
+
 # Restaurant Reservation — бронь столиков в ресторане
 Проект команды 3 курса «Прикладная информатика» по дисциплине «Программная инженерия», осень 2026/2027.
 Основа — индивидуальная работа Т. Бурковой (курс «Проектирование ИС»).
