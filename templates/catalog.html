@@ -1,15 +1,30 @@
 {% extends "base.html" %}{% block body %}
 <h3>Свободные столики</h3>
 <form method="get">
- Дата <input type="date" name="date" value="{{ day }}">
- Время <select name="time">{% for s in slots %}<option {{ 'selected' if s==slot }}>{{ s }}</option>{% endfor %}</select>
- Гостей <input type="number" name="guests" min="1" max="8" value="{{ guests }}" style="width:60px">
- <button>Применить</button>
+    <div>
+        <label for="catalog-date">Дата</label>
+        <input type="date" id="catalog-date" name="date" value="{{ day }}">
+    </div>
+    <div>
+        <label for="catalog-time">Время</label>
+        <select id="catalog-time" name="time">
+            {% for s in slots %}<option {{ 'selected' if s==slot }}>{{ s }}</option>{% endfor %}
+        </select>
+    </div>
+    <div>
+        <label for="catalog-guests">Гостей</label>
+        <input type="number" id="catalog-guests" name="guests" min="1" max="8" value="{{ guests }}" style="width:60px">
+    </div>
+    <button>Применить</button>
 </form>
+
 <div class="cards">
 {% for t in tables %}
- <div class="card"><b>Столик {{ t.id }}</b><br>{{ t.zone }}<br>{{ t.seats }} мест<br>
- <a href="{{ url_for('booking_form', table_id=t.id, date=day, time=slot, guests=guests) }}">Забронировать</a></div>
-{% else %}<p>Нет свободных столиков.</p>{% endfor %}
-</div><p>Показано столиков: {{ tables|length }}</p>
+    <div class="card"><b>Столик {{ t.id }}</b><br>{{ t.zone }}<br>{{ t.seats }} мест<br>
+    <a href="{{ url_for('booking_form', table_id=t.id, date=day, time=slot, guests=guests) }}">Забронировать</a></div>
+{% else %}
+    <p>Нет свободных столиков.</p>
+{% endfor %}
+</div>
+<p>Показано столиков: {{ tables|length }}</p>
 {% endblock %}
